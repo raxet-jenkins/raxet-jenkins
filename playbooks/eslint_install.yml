@@ -1,0 +1,25 @@
+#Run with `ansible-playbook -c local -i localhost install.yml`
+- hosts: localhost
+  tasks:
+  - name: Install node software
+    apt:
+      name: "{{ item }}"
+    with_items:
+      - nodejs
+      - npm
+
+  - name: Install package management
+    npm:
+      name: n
+      global: true
+
+  - name: Update to latest stable
+    command: n stable
+
+  - name: Install eslint and babel-eslint
+    npm:
+      name: "{{ item }}"
+      global: true
+    with_items:
+      - eslint
+      - babel-eslint
